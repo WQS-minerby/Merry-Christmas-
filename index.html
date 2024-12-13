@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiday Greetings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ffefba, #ffffff);
+            text-align: center;
+            padding: 2rem;
+            color: #333;
+        }
+        h1 {
+            color: #b22222;
+            font-size: 3rem;
+        }
+        h2 {
+            color: #228b22;
+            font-size: 2rem;
+        }
+        p {
+            font-size: 1.5rem;
+        }
+        .greeting-card {
+            background: white;
+            padding: 2rem;
+            margin: 2rem auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            display: block;
+        }
+        .name-input {
+            margin-top: 1rem;
+            font-size: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 60%;
+            max-width: 300px;
+        }
+        .submit-btn {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            color: white;
+            background: #228b22;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .share-btn {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            color: white;
+            background: #b22222;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="greeting-card" id="nameForm">
+    <h2>Enter Your Name to Receive Personalized Wishes:</h2>
+    <form onsubmit="showGreeting(event)">
+        <input type="text" class="name-input" id="userName" placeholder="Your Name" required>
+        <br>
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+
+<div class="greeting-card" id="greeting" style="display: none;">
+    <h1 id="personalizedMessage"></h1>
+    <h2>Merry Christmas!</h2>
+    <p>Wishing You Joy and Happiness</p>
+    <p>May your holiday season be filled with warmth, love, and unforgettable moments.</p>
+    <h2>Happy New Year!</h2>
+    <p>Cheers to New Beginnings</p>
+    <p>May the new year bring prosperity, success, and endless joy to you and your loved ones.</p>
+    <button class="share-btn" onclick="shareGreeting()">Share Wishes</button>
+</div>
+
+<script>
+    function showGreeting(event) {
+        event.preventDefault();
+        const name = document.getElementById('userName').value;
+        const personalizedMessage = document.getElementById('personalizedMessage');
+        const greeting = document.getElementById('greeting');
+        const nameForm = document.getElementById('nameForm');
+
+        personalizedMessage.textContent = `Happy Holidays, ${name}!`;
+        greeting.style.display = 'block';
+        nameForm.style.display = 'none';
+    }
+
+    function shareGreeting() {
+        const message = document.getElementById('personalizedMessage').textContent;
+        const url = window.location.href;
+        navigator.share({
+            title: 'Holiday Greetings',
+            text: `${message}\nMerry Christmas and Happy New Year!`,
+            url: url
+        }).catch(console.error);
+    }
+</script>
+
+</body>
+</html>
