@@ -96,6 +96,10 @@
         personalizedMessage.textContent = `Happy Holidays, ${name}!`;
         greeting.style.display = 'block';
         nameForm.style.display = 'none';
+
+        // Update URL with name parameter
+        const newUrl = `${window.location.origin}${window.location.pathname}?name=${encodeURIComponent(name)}`;
+        window.history.pushState({}, '', newUrl);
     }
 
     function shareGreeting() {
@@ -106,6 +110,16 @@
             text: `${message}\nMerry Christmas and Happy New Year!`,
             url: url
         }).catch(console.error);
+    }
+
+    // Load greeting if name is in the URL
+    window.onload = function() {
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get('name');
+        if (name) {
+            document.getElementById('userName').value = name;
+            showGreeting(new Event('submit'));
+        }
     }
 </script>
 
